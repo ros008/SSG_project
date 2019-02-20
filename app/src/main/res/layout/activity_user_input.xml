@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_layout"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:gravity="center_vertical"
+        android:text="3개의 품목을 골라주세요."
+        android:textColor="@color/color_primary_orange"
+        android:textSize="15dp" />
+
+    <ListView
+        android:id="@+id/ListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"/>
+
+    <Button
+        android:id="@+id/select_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="선택 완료"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:background="@color/transparent"
+        android:layout_weight="1"/>
+
+
+</LinearLayout>

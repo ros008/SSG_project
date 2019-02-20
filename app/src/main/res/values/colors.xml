@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#333743</color>
+    <color name="color_primary_orange">#E44F39</color>
+    <color name="color_primary_white">#ffffff</color>
+
+    <color name="color_primary_dark">#303F9F</color>
+    <color name="color_accent">#FF4081</color>
+
+    <color name="color_transparent_white">#aaffffff</color>
+    <color name="transparent">#00ffffff</color>
+
+    <color name="list_divider">#e5e5e5</color>
+    <color name="list_select">#ff4081</color>
+</resources>
