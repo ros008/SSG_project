@@ -20,19 +20,7 @@ public interface NetworkService {
     @GET("/api/pum-list/")
     Call<List<Item>> getPumList(@Query("format") String format);
 
-    @POST("/api/UserInputActivity/")
-    Call<ResponseBody> postPumList(@Body PostPreferPum body);
-
-    @GET("/api/detailActivity/{itemid}")
-    Call<List<RecommendItem>> getRecItemList(@Path("itemid") String path);
-
-/*    @POST("/api/versions/")
-    Call<Version> post_version(@Body Version version);
-
-    @GET("/api/versions/")
-    Call<List<Version>> get_version();
-
-    @GET("/api/versions/{pk}/")
-    Call<Version> get_pk_version(@Path("pk") int pk);*/
+    @GET("/api/detailActivity/{pumid}")
+    Call<List<RecommendItem>> getRecItemList(@Path("pumid") String path);
 
 }

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserInputActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "https://2b026a0d.ngrok.io/";
+    private final String BASE_URL = "https://fceda59a.ngrok.io/";
 
     private Retrofit retrofit;
     private Toolbar toolbar;
@@ -66,6 +67,7 @@ public class UserInputActivity extends AppCompatActivity {
         // 리스트뷰에 담을 ID, NAME
         final List<String> list_id = new ArrayList<String>();
         final List<String> list_name = new ArrayList<String>();
+        final List<Float> list_rate = new ArrayList<Float>();
 
         list_id.add("id1");
         list_id.add("id2");
@@ -74,6 +76,10 @@ public class UserInputActivity extends AppCompatActivity {
         list_name.add("name1");
         list_name.add("name2");
         list_name.add("name3");
+
+        list_rate.add(Float.parseFloat("1"));
+        list_rate.add(Float.parseFloat("2"));
+        list_rate.add(Float.parseFloat("3"));
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice, list_name);
@@ -100,6 +106,7 @@ public class UserInputActivity extends AppCompatActivity {
                     for (Item item : pumlist) {
                         list_id.add(item.getPum_id());
                         list_name.add(item.getPum_name());
+                        list_rate.add(Float.parseFloat(item.getRate()));
                     }
                 }
                 else{
@@ -115,8 +122,12 @@ public class UserInputActivity extends AppCompatActivity {
             @Override
             // 실패시
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                Toast.makeText(UserInputActivity.this, "정보 받아오기 실패", Toast.LENGTH_LONG)
+                Toast.makeText(UserInputActivity.this, "정보 받아오기 완전 실패", Toast.LENGTH_LONG)
                         .show();
+                //
+                listview.setAdapter(adapter);
+                listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                //
             }
         });
 
@@ -148,11 +159,12 @@ public class UserInputActivity extends AppCompatActivity {
 
                 for(int i = 0; i < count; i++){
                     if(checkedPums.get(i)){
-                        sb. append(list_id.get(i)+list_name.get(i));
+                        sb. append(list_id.get(i)+list_name.get(i)+list_rate.get(i));
 
                         Log.i("getintent"+checkedPumsCnt,list_id.get(i));
                         intent.putExtra("pum_id"+checkedPumsCnt,list_id.get(i));
                         intent.putExtra("pum_name"+checkedPumsCnt,list_name.get(i));
+                        intent.putExtra("rate"+checkedPumsCnt,list_rate.get(i));
 
                         checkedPumsCnt++;
                     }
@@ -160,6 +172,31 @@ public class UserInputActivity extends AppCompatActivity {
 
                 if(checkedPumsCnt == 3){
                     Toast.makeText(getApplicationContext(), "3개 항목 선택완료"+sb, Toast.LENGTH_LONG).show();
+
+                    float max = 0;
+                    int maxi = 0;
+
+                    float min = 0;
+                    int mini = 0;
+
+                    for(int i=0; i<list_rate.size(); i++){
+                        if(list_rate.get(i)>max) {
+                            max = list_rate.get(i);
+                            maxi = i;
+                        }
+                        if(list_rate.get(i)<min) {
+                            min = list_rate.get(i);
+                            mini = i;
+                        }
+                    }
+
+                    intent.putExtra("max_rate_id", list_id.get(maxi));
+                    intent.putExtra("max_rate_name", list_name.get(maxi));
+                    intent.putExtra("max_rate_rate", list_rate.get(maxi));
+
+                    intent.putExtra("min_rate_id", list_id.get(mini));
+                    intent.putExtra("min_rate_name", list_name.get(mini));
+                    intent.putExtra("min_rate_rate", list_rate.get(mini));
 
                     startActivity(intent);
                 }

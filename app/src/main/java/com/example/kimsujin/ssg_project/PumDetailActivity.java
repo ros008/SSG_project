@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PumDetailActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "https://2b026a0d.ngrok.io/";
+    private final String BASE_URL = "https://fceda59a.ngrok.io/";
 
     private Retrofit retrofit;
 

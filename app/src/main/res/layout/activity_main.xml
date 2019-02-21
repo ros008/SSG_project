@@ -36,16 +36,87 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
-        <GridView
-            android:id="@+id/gridview1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0px"
-            android:layout_marginRight="0px"
-            android:listSelector="@android:color/transparent"
-            android:numColumns="3">
 
-        </GridView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/pum1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                android:fontFamily="@font/nanum_gothic"
+                android:stateListAnimator="@null"
+                android:theme="@style/MyButton" />
+
+            <TextView
+                android:id="@+id/pumtv1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="pumtv1"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/pum2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                android:fontFamily="@font/nanum_gothic"
+                android:stateListAnimator="@null"
+                android:theme="@style/MyButton"/>
+
+            <TextView
+                android:id="@+id/pumtv2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="pumtv2"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/pum3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                android:fontFamily="@font/nanum_gothic"
+                android:stateListAnimator="@null"
+                android:theme="@style/MyButton"/>
+
+            <TextView
+                android:id="@+id/pumtv3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="pumt3"
+                android:textAlignment="center" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -90,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/nanum_gothic_bold"
-        android:text="등락률이 컸던 품목 / 할인 품목"
+        android:text="등락률이 컸던 품목"
         android:textAlignment="center"
         android:textColor="@color/color_primary"
         android:textSize="20dp" />
@@ -102,60 +173,67 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/recommend_pum1"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:fontFamily="@font/nanum_gothic"
+            android:orientation="vertical">
 
-            android:theme="@style/MyButton"/>
+            <Button
+                android:id="@+id/pum_rise"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:fontFamily="@font/nanum_gothic"
+                android:stateListAnimator="@null"
+                android:theme="@style/MyButton"/>
 
-        <Button
-            android:id="@+id/recommend_pum2"
+            <TextView
+                android:id="@+id/pumtv_rise"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="pumt3"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:fontFamily="@font/nanum_gothic"
-            android:theme="@style/MyButton"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/recommend_pum3"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:fontFamily="@font/nanum_gothic"
-            android:theme="@style/MyButton"/>
+            <Button
+                android:id="@+id/pum_decline"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:fontFamily="@font/nanum_gothic"
+                android:stateListAnimator="@null"
+                android:theme="@style/MyButton"/>
+
+            <TextView
+                android:id="@+id/pumtv_decline"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="pumt3"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
 
     <View style="@style/Divider"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TestView"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="367dp"
-            android:fontFamily="@font/nanum_gothic" />
-
-    </LinearLayout>
 
 </LinearLayout>

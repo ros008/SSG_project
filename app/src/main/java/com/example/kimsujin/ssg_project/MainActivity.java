@@ -1,6 +1,7 @@
 package com.example.kimsujin.ssg_project;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONObject;
 
@@ -38,20 +40,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "https://2b026a0d.ngrok.io/";
+    private final String BASE_URL = "https://fceda59a.ngrok.io/";
     private final String SSG_URL = "http://m.emart.ssg.com/search.ssg?query=";
 
     private Retrofit retrofit;
 
     private TextView textView;
     private EditText searchText;
+
     private Button pum1;
     private Button pum2;
     private Button pum3;
+
+    private TextView pumtv1;
+    private TextView pumtv2;
+    private TextView pumtv3;
+
+
     private Button rec_pum1;
     private Button rec_pum2;
-    private Button rec_pum3;
 
+    private TextView rec_pumtv1;
+    private TextView rec_pumtv2;
 
     private Toolbar toolbar;
 
@@ -59,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> preferPumNameList;
     List<String> preferPumIDList;
+    List<Float> preferPumRateList;
 
     // private BackPressCloseHandler backPressCloseHandler;
 
@@ -73,16 +84,22 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        textView = (TextView) findViewById(R.id.tv1);
         searchText = (EditText) findViewById(R.id.searchtext);
-        /*
+
         pum1 = (Button) findViewById(R.id.pum1);
         pum2 = (Button) findViewById(R.id.pum2);
         pum3 = (Button) findViewById(R.id.pum3);
-        */
-        rec_pum1 = (Button) findViewById(R.id.recommend_pum1);
-        rec_pum2 = (Button) findViewById(R.id.recommend_pum2);
-        rec_pum3 = (Button) findViewById(R.id.recommend_pum3);
+
+        pumtv1 = (TextView) findViewById(R.id.pumtv1);
+        pumtv2 = (TextView) findViewById(R.id.pumtv2);
+        pumtv3 = (TextView) findViewById(R.id.pumtv3);
+
+        rec_pum1 = (Button) findViewById(R.id.pum_rise);
+        rec_pum2 = (Button) findViewById(R.id.pum_decline);
+
+        rec_pumtv1 = (TextView) findViewById(R.id.pumtv_rise);
+        rec_pumtv2 = (TextView) findViewById(R.id.pumtv_decline);
+
 
         lineChart = (LineChart) findViewById(R.id.chart);
 
@@ -116,8 +133,13 @@ public class MainActivity extends AppCompatActivity {
         final String pum_name1 = intent.getExtras().getString("pum_name1");
         final String pum_name2 = intent.getExtras().getString("pum_name2");
 
+        final float pum_rate0 = intent.getExtras().getFloat("rate0");
+        final float pum_rate1 = intent.getExtras().getFloat("rate1");
+        final float pum_rate2 = intent.getExtras().getFloat("rate2");
+
         preferPumNameList = new ArrayList<String>();
         preferPumIDList = new ArrayList<String>();
+        preferPumRateList = new ArrayList<Float>();
 
         preferPumNameList.add(pum_name0);
         preferPumNameList.add(pum_name1);
@@ -127,29 +149,74 @@ public class MainActivity extends AppCompatActivity {
         preferPumIDList.add(pum_id1);
         preferPumIDList.add(pum_id2);
 
-        ListAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_preferpum, R.id.lable, preferPumNameList);
+        preferPumRateList.add(pum_rate0);
+        preferPumRateList.add(pum_rate1);
+        preferPumRateList.add(pum_rate2);
 
-        GridView gridView = (GridView) findViewById(R.id.gridview1);
-        gridView.setAdapter(adapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView tv = (TextView) view.findViewById(R.id.lable);
-                Toast.makeText(MainActivity.this, i+", "+tv.getText(),Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getApplicationContext(), PumDetailActivity.class);
-                intent.putExtra("pum_id",preferPumIDList.get(i));
-                intent.putExtra("pum_name",preferPumNameList.get(i));
-                startActivity(intent);
-            }
-        });
-
-        /*
         pum1.setText(pum_name0);
         pum2.setText(pum_name1);
         pum3.setText(pum_name2);
-        */
+
+        pumtv1.setText(String.valueOf(pum_rate0));
+        pumtv2.setText(String.valueOf(pum_rate1));
+        pumtv3.setText(String.valueOf(pum_rate2));
+
+        if(pum_rate0>=0){
+            pumtv1.setTextColor(Color.BLUE);
+            pumtv1.append("%\u25B2");
+        }
+        else{
+            pumtv1.setTextColor(Color.RED);
+            pumtv1.append("%\u25BC");
+        }
+        if(pum_rate1>=0){
+            pumtv2.setTextColor(Color.BLUE);
+            pumtv2.append("%\u25B2");
+        }
+        else{
+            pumtv2.setTextColor(Color.RED);
+            pumtv2.append("%\u25BC");
+        }
+        if(pum_rate2>=0){
+            pumtv3.setTextColor(Color.BLUE);
+            pumtv3.append("%\u25B2");
+        }
+        else{
+            pumtv3.setTextColor(Color.RED);
+            pumtv3.append("%\u25BC");
+        }
+
+        final String rec_pum_rise_id = intent.getExtras().getString("max_rate_id");
+        final String rec_pum_rise_name = intent.getExtras().getString("max_rate_name");
+        final float rec_pum_rise_rate = intent.getExtras().getFloat("max_rate_rate");
+
+        final String rec_pum_dec_id = intent.getExtras().getString("min_rate_id");
+        final String rec_pum_dec_name = intent.getExtras().getString("min_rate_name");
+        final float rec_pum_dec_rate = intent.getExtras().getFloat("min_rate_rate");
+
+
+        rec_pum1.setText(rec_pum_rise_name);
+        rec_pum2.setText(rec_pum_dec_name);
+
+        rec_pumtv1.setText(String.valueOf(rec_pum_rise_rate));
+        rec_pumtv2.setText(String.valueOf(rec_pum_dec_rate));
+
+        if(rec_pum_rise_rate>=0){
+            rec_pumtv1.setTextColor(Color.BLUE);
+            rec_pumtv1.append("%\u25B2");
+        }
+        else{
+            rec_pumtv1.setTextColor(Color.RED);
+            rec_pumtv1.append("%\u25BC");
+        }
+        if(rec_pum_dec_rate>=0){
+            rec_pumtv2.setTextColor(Color.BLUE);
+            rec_pumtv2.append("%\u25B2");
+        }
+        else{
+            rec_pumtv2.setTextColor(Color.RED);
+            rec_pumtv2.append("%\u25BC");
+        }
 
         Log.i("getintent",pum_id0+pum_id1+pum_id2);
 
@@ -166,38 +233,6 @@ public class MainActivity extends AppCompatActivity {
 
         // NetworkService API 인터페이스 생성
         final NetworkService service = retrofit.create(NetworkService.class);
-
-        // 선호 품목을 보내면, 등락률 크고 / 등락률 작고 / 할인률 큰 상품들을 받아서 보여주는 부분
-        Call<ResponseBody> callPum = service.postPumList(postPreferPum);
-        Log.i(TAG, jsonObject.toString());
-        // 앞서만든 요청을 수행
-        callPum.enqueue(new Callback<ResponseBody>() {
-            @Override
-            // 성공시
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {  // 여기부터 수정 필요
-
-                if(response.body() != null){
-                    Log.i("TEST", response.body().toString());
-                    textView.append(response.body().toString());
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "정보 받아오기 실패2", Toast.LENGTH_LONG)
-                            .show();
-                    int StatusCode = response.code();
-                    Log.i(TAG, "Status Code : " + StatusCode + " Error Message : " + response.errorBody());
-
-                }
-            }
-
-            @Override
-            // 실패시
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "정보 받아오기 완전 실패2", Toast.LENGTH_LONG)
-                        .show();
-                Log.i(TAG, "Fail Message : " + t.getMessage());
-            }
-        });
-
 
         // 물가 지수 그래프 정보 받는 부분 GET
         // 인터페이스에 구현한 메소드인 priceindex param 값을 넘기는 요청 만듬
@@ -228,7 +263,9 @@ public class MainActivity extends AppCompatActivity {
                     LineDataSet dataset = new LineDataSet(entries, "소비자 물가 지수(2015기준)");
 
                     LineData data = new LineData(labels, dataset);
-                    // dataset.setColors(ColorTemplate.LIBERTY_COLORS);
+                    // dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+                    dataset.setColor(R.color.color_primary_orange);
+
                     // dataset.setDrawCubic(true); //선 둥글게 만들기
 
                     // dataset.setDrawFilled(true); // 그래프 밑에 색깔 채우기
@@ -255,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         // 버튼 리스너 등록
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
@@ -286,17 +323,15 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
 
                         break ;
-                    case R.id.recommend_pum1 :
-
-
+                    case R.id.pum_rise :
+                        intent.putExtra("pum_id",rec_pum_rise_id);
+                        intent.putExtra("pum_name",rec_pum_rise_name);
+                        startActivity(intent);
                         break;
-                    case R.id.recommend_pum2 :
-
-
-                        break;
-                    case R.id.recommend_pum3 :
-
-
+                    case R.id.pum_decline :
+                        intent.putExtra("pum_id",rec_pum_dec_id);
+                        intent.putExtra("pum_name",rec_pum_dec_name);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -306,10 +341,10 @@ public class MainActivity extends AppCompatActivity {
         pum1.setOnClickListener(onClickListener);
         pum2.setOnClickListener(onClickListener);
         pum3.setOnClickListener(onClickListener);
+
         rec_pum1.setOnClickListener(onClickListener);
         rec_pum2.setOnClickListener(onClickListener);
-        rec_pum3.setOnClickListener(onClickListener);
-        */
+
 
         // 검색기능 구현
         searchText.setOnKeyListener(new View.OnKeyListener() {

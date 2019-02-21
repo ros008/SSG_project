@@ -14,8 +14,8 @@
     </style>
 
     <style name="MyButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlHighlight">@color/color_primary</item>
-        <item name="colorButtonNormal">@color/color_primary_orange</item>
+        <item name="colorControlHighlight">@color/color_primary_orange</item>
+        <item name="colorButtonNormal">@color/color_transparent_white</item>
     </style>
 
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
