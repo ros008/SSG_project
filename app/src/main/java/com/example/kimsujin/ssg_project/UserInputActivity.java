@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserInputActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "https://fceda59a.ngrok.io/";
+    private final String BASE_URL = "https://2366ac34.ngrok.io/";
 
     private Retrofit retrofit;
     private Toolbar toolbar;
@@ -110,7 +110,7 @@ public class UserInputActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(UserInputActivity.this, "정보 받아오기 실패", Toast.LENGTH_LONG)
+                    Toast.makeText(UserInputActivity.this, "품목 리스트 받아오기 실패\n네트워크 연결을 확인하세요.", Toast.LENGTH_LONG)
                             .show();
                 }
 
@@ -122,7 +122,7 @@ public class UserInputActivity extends AppCompatActivity {
             @Override
             // 실패시
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                Toast.makeText(UserInputActivity.this, "정보 받아오기 완전 실패", Toast.LENGTH_LONG)
+                Toast.makeText(UserInputActivity.this, "품목 리스트 받아오기 실패\n네트워크 연결을 확인하세요.", Toast.LENGTH_LONG)
                         .show();
                 //
                 listview.setAdapter(adapter);
@@ -171,8 +171,6 @@ public class UserInputActivity extends AppCompatActivity {
                 }
 
                 if(checkedPumsCnt == 3){
-                    Toast.makeText(getApplicationContext(), "3개 항목 선택완료"+sb, Toast.LENGTH_LONG).show();
-
                     float max = 0;
                     int maxi = 0;
 

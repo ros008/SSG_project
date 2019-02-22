@@ -40,12 +40,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "https://fceda59a.ngrok.io/";
+    private final String BASE_URL = "https://2366ac34.ngrok.io/";
     private final String SSG_URL = "http://m.emart.ssg.com/search.ssg?query=";
 
     private Retrofit retrofit;
 
-    private TextView textView;
     private EditText searchText;
 
     private Button pum1;
@@ -221,10 +220,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("getintent",pum_id0+pum_id1+pum_id2);
 
 
-
-        // 사용자가 선택한 선호 품목으로 객체 만들어서 서버에 보냄
-        PostPreferPum postPreferPum = new PostPreferPum(pum_id0, pum_id1, pum_id2);
-
         // GSON 컨버터를 사용하는 REST 어댑터 생성
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -278,16 +273,15 @@ public class MainActivity extends AppCompatActivity {
                     lineChart.animateY(5000);
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "정보 받아오기 실패1", Toast.LENGTH_LONG)
+                    Toast.makeText(MainActivity.this, "물가지수 정보 받아오기 실패\n네트워크 연결을 확인하세요", Toast.LENGTH_LONG)
                             .show();
-                    textView.append(("1실패"+"\n"));
                 }
             }
 
             @Override
             // 실패시
             public void onFailure(Call<List<PriceIndex>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "정보 받아오기 실패1", Toast.LENGTH_LONG)
+                Toast.makeText(MainActivity.this, "물가지수 정보 받아오기 실패\n네트워크 연결을 확인하세요", Toast.LENGTH_LONG)
                         .show();
             }
         });
@@ -300,24 +294,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), PumDetailActivity.class);
                 switch (view.getId()) {
                     case R.id.pum1 :
-                        Toast.makeText(MainActivity.this, pum_id0+"  "+pum_name0, Toast.LENGTH_LONG)
-                                .show();
                         intent.putExtra("pum_id",pum_id0);
                         intent.putExtra("pum_name",pum_name0);
                         startActivity(intent);
 
                         break ;
                     case R.id.pum2 :
-                        Toast.makeText(MainActivity.this, pum_id1+"  "+pum_name1, Toast.LENGTH_LONG)
-                                .show();
                         intent.putExtra("pum_id",pum_id1);
                         intent.putExtra("pum_name",pum_name1);
                         startActivity(intent);
 
                         break ;
                     case R.id.pum3 :
-                        Toast.makeText(MainActivity.this, pum_id2+"  "+pum_name2, Toast.LENGTH_LONG)
-                                .show();
                         intent.putExtra("pum_id",pum_id2);
                         intent.putExtra("pum_name",pum_name2);
                         startActivity(intent);

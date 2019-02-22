@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PumDetailActivity extends AppCompatActivity {
 
-    private final String BASE_URL = "https://fceda59a.ngrok.io/";
+    private final String BASE_URL = "https://2366ac34.ngrok.io/";
 
     private Retrofit retrofit;
 
@@ -73,7 +73,7 @@ public class PumDetailActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(PumDetailActivity.this, "정보 받아오기 실패", Toast.LENGTH_LONG)
+                    Toast.makeText(PumDetailActivity.this, "품목 상세 정보 받아오기 실패\n네트워크 연결을 확인하세요.", Toast.LENGTH_LONG)
                             .show();
                 }
 
@@ -82,7 +82,7 @@ public class PumDetailActivity extends AppCompatActivity {
             @Override
             // 실패시
             public void onFailure(Call<List<RecommendItem>> call, Throwable t) {
-                Toast.makeText(PumDetailActivity.this, "정보 받아오기 실패", Toast.LENGTH_LONG)
+                Toast.makeText(PumDetailActivity.this, "품목 상세 정보 받아오기 실패\n네트워크 연결을 확인하세요.", Toast.LENGTH_LONG)
                         .show();
             }
         });
